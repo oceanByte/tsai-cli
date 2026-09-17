@@ -1,0 +1,60 @@
+{
+  "secret_committed": {
+    "type": "noul",
+    "instructions": "Does the diff in `change` add a credential, API key, token, private key, or password as a literal value?",
+    "criteria": {
+      "true": "An added line contains a real secret value, not a placeholder such as REDACTED, xxx, or an obvious example.",
+      "false": "No secret material is added, or the added values are clearly placeholders or test fixtures."
+    }
+  },
+  "unhandled_failure": {
+    "type": "noul",
+    "instructions": "Does the diff in `change` introduce an operation that can fail without handling that failure?",
+    "criteria": {
+      "true": "An added call can throw, reject, or return an error that is ignored, swallowed by an empty catch, or left unchecked.",
+      "false": "Failures are handled, deliberately propagated to a caller that handles them, or cannot occur here."
+    }
+  },
+  "debug_leftover": {
+    "type": "noul",
+    "instructions": "Does the diff in `change` leave behind debugging scaffolding that was not meant to ship?",
+    "criteria": {
+      "true": "It adds a stray print or console log, a commented-out block, a hardcoded test value, or a skipped or focused test.",
+      "false": "Any logging present is deliberate and structured, and no scaffolding remains."
+    }
+  },
+  "breaking_change": {
+    "type": "noul",
+    "instructions": "Does the diff in `change` alter behaviour that existing callers depend on?",
+    "criteria": {
+      "true": "It renames or removes an exported name, changes a signature or return shape, or changes the meaning of an existing argument or output.",
+      "false": "It is additive, internal, or preserves the existing contract."
+    }
+  },
+  "missing_test": {
+    "type": "noul",
+    "instructions": "Does the diff in `change` add or alter logic that ought to have come with a test, without one?",
+    "criteria": {
+      "true": "It adds branching, parsing, calculation, or error handling, and the diff contains no corresponding test.",
+      "false": "It includes a test, or the change is configuration, formatting, documentation, or otherwise not worth testing."
+    }
+  },
+  "unclear_naming": {
+    "type": "noul",
+    "instructions": "Does the diff in `change` introduce a name that does not say what the thing is or does?",
+    "criteria": {
+      "true": "An added identifier is a single letter outside a tight loop, a vague noun such as data or handler, or misleading about what it holds.",
+      "false": "Added names describe their contents or behaviour well enough to read the code without tracing it."
+    }
+  },
+  "severity": {
+    "type": "score",
+    "instructions": "How much attention does the diff in `change` need before it can be merged?",
+    "criteria": [
+      "None. It is clean, or the only remarks are matters of taste.",
+      "A note. Worth mentioning in review but not worth blocking on.",
+      "A fix. Something here should change before merge.",
+      "A block. This would break users, leak data, or lose work."
+    ]
+  }
+}

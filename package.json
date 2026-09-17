@@ -1,0 +1,52 @@
+{
+  "name": "tsai-cli",
+  "version": "0.1.0",
+  "description": "Unofficial, unaffiliated CLI for the TypeSafe AI System One API, built for testing and prototyping. Typed judgments (noul, choice, score) for shells, CI, and coding agents.",
+  "license": "MIT",
+  "author": "Albert Peci",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oceanByte/tsai-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oceanByte/tsai-cli/issues"
+  },
+  "homepage": "https://github.com/oceanByte/tsai-cli#readme",
+  "type": "module",
+  "bin": {
+    "tsai": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "presets",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "jev",
+    "system-one",
+    "cli",
+    "ai",
+    "classification",
+    "agents",
+    "claude-code"
+  ],
+  "scripts": {
+    "build": "bun build src/cli.ts --target=node --outdir dist --external @typesafe-ai/sdk && chmod +x dist/cli.js",
+    "dev": "bun run src/cli.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run typecheck && bun test && bun run build"
+  },
+  "dependencies": {
+    "@typesafe-ai/sdk": "^0.6.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
+}
